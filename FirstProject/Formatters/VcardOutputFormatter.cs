@@ -21,7 +21,7 @@ namespace FirstProject.Formatters
         public override Task WriteResponseBodyAsync(OutputFormatterWriteContext context, Encoding selectedEncoding)
         {
             var response = context.HttpContext.Response;
-
+            
             var stringBuilder = new StringBuilder();
 
             if (context.Object is List<ContactModel>)
@@ -48,6 +48,8 @@ namespace FirstProject.Formatters
             stringBuilder.AppendLine($"N{model.LastName};{model.FirstName}");
             stringBuilder.AppendLine($"UID:{model.Id}\r");
             stringBuilder.AppendLine("END:VCARD");
+
+
         }
         protected override bool CanWriteType(Type type)
         {
