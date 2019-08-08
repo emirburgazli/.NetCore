@@ -31,6 +31,9 @@ namespace FirstProject
         {
             services.AddScoped<IProductDal, EfProductDal>();
             services.AddScoped<ICategoryDal, EfCategoryDal>();
+
+            
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
