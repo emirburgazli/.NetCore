@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FirstProject.CustomMiddlewares;
 using FirstProject.DataAccess;
 using FirstProject.Formatters;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,11 +29,9 @@ namespace FirstProject
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IProductDal,EfProductDal>();
-            services.AddScoped<ICategoryDal,EfCategoryDal>();
-            services.AddMvc(options=> {
-                options.OutputFormatters.Add(new VcardOutputFormatter());
-            });
+            services.AddScoped<IProductDal, EfProductDal>();
+            services.AddScoped<ICategoryDal, EfCategoryDal>();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,6 +39,7 @@ namespace FirstProject
         {
             if (env.IsDevelopment())
             {
+
                 app.UseDeveloperExceptionPage();
             }
             else
@@ -47,8 +48,12 @@ namespace FirstProject
                 app.UseHsts();
             }
 
+            app.UseMiddleware<AuthenticationMiddleware>();
             //app.UseHttpsRedirection();
-            app.UseMvc();
+            app.UseMvc(config =>
+            {
+                //config.MapRoute("DefaultRounte", "api/{controller}/{action}");
+            });
         }
     }
 }
