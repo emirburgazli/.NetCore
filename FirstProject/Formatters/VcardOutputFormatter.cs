@@ -48,7 +48,7 @@ namespace FirstProject.Formatters
             stringBuilder.AppendLine($"N{model.LastName};{model.FirstName}");
             stringBuilder.AppendLine($"UID:{model.Id}\r");
             stringBuilder.AppendLine("END:VCARD");
-
+             
 
         }
         protected override bool CanWriteType(Type type)
