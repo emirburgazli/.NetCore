@@ -5,11 +5,12 @@ using System.Threading.Tasks;
 using FirstProject.CustomMiddlewares;
 using FirstProject.DataAccess;
 using FirstProject.Formatters;
-
+using FirstProject.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -22,6 +23,7 @@ namespace FirstProject
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+       
         }
 
         public IConfiguration Configuration { get; }
@@ -31,8 +33,10 @@ namespace FirstProject
         {
             services.AddScoped<IProductDal, EfProductDal>();
             services.AddScoped<ICategoryDal, EfCategoryDal>();
+            var connection = @"Server='DESKTOP - 0TDUATN\SQLEXPRESS'; Database=SchoolDb; Trusted_Connection=true; ";
+            services.AddDbContext<SchoolContext>(options => options.UseSqlServer(connection));
 
-            
+
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
