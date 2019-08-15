@@ -36,8 +36,6 @@ namespace FirstProject
             var connection = @"Server='DESKTOP - 0TDUATN\SQLEXPRESS'; Database=SchoolDb; Trusted_Connection=true; ";
             services.AddDbContext<SchoolContext>(options => options.UseSqlServer(connection));
 
-
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
